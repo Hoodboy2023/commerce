@@ -1,0 +1,34 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div id="new_listing" >
+    <h2>Create Listing</h2>
+    <form action="{% url 'create_listing' %}" method="post">
+        {% csrf_token %}
+        <label ><strong>Title</strong><input type="text" name="title" required placeholder="Title"></label>
+        <label><strong>Description</strong><input type="text" name="description" required placeholder="Description"></label>
+        <label><strong>Price</strong><input type="text" name="current_price" required placeholder="price($):e.g 2000"></label>
+        <label><strong>Image Source</strong><input type="text" name="photo" required placeholder="Image Source"></label>
+        <label><strong>Catergory</strong>
+            <select name="category">
+                <option value="1" selected disabled>Select Category</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Home and Garden">Home and Garden</option>
+                <option value="Collectibles and Art"> Collectibles and Art</option>
+                <option value="Toys and Games">Toys and Games</option>
+                <option value="Books and Media">Books and Media</option>
+                <option value="Sports and Fitness">Sports and Fitness</option>
+                <option value="Vechicles and Automotive">Vechicles and Automotive</option>
+                <option value="Health and Beauty">Health and Beauty</option>
+                <option value="Crafts and DIY">Crafts and DIY</option>
+                <option value="Pets and Pet Supplies">Pets and Pet Supplies</option>
+                <option value="Office and Business">Office abd Business</option>
+                <option value="Food and Beverage">Food and Beverage</option>
+                <option value="Travel and Experiences">Travel and Experiences</option>
+                <option value="Miscellaneous"></option>
+            </select>
+        <input type="submit" value="Create">
+    </form>
+</div>
+{% endblock %}

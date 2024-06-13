@@ -1,0 +1,93 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+ <div>
+    {% if listing.status %}
+    
+      <h2 class="ml-5 mb-3">Listing: {{listing.title}}</h2>
+      <div id="listing"> 
+         <div class="imageContainer">
+           <img id="listing_image" src="{{listing.photo}}" alt="{{listing.title}}">
+         </div>
+         <div class="info">
+           <p><strong>Price: </strong><strong>${{listing.current_price}}</strong></p>
+         
+             {% if user.is_authenticated %}
+            {% if highest_bid %}
+            <p><strong>Highest bid: </strong><strong>${{highest_bid}}</strong></p>
+            {% endif %}
+            {% if listing.status == "Open" %}
+            <form action="{% url 'listing' listing.id %}" method="post">
+               {% csrf_token %}
+               <input name="bid" type="number" min="{% if highest_bid %}
+               {{ highest_bid }}
+               {% else %}
+               {{ listing.price }}
+                {% endif %}" placeholder="e.g 3000" autocomplete="off" autofocus>
+               <input type="submit" value="Place bid($)">
+            </form>
+            <form action="{% url 'watchlist' %}" method="post">
+               {% csrf_token %}
+               <input type="hidden" name="watchlist_addition" value="{{listing.id}}">
+               <input class="mt-3" type="submit" value="Add to watchlist">
+            </form>
+            {% if user.id == listing.user.id %}
+            {% csrf_token %}
+            <form action="{% url 'close' listing.id %}" method="post">
+               {% csrf_token %}
+               <input class="mt-2" type="submit" value="Remove listing">
+            </form>
+            {%  endif %}
+            {% else %}
+            <div>
+              {% if user.is_authenticated %}
+              {% for bid in user_listing_bids %}
+              {% if bid.bid == highest_bid %}
+              <p id="won" class="pl-2 w-75"><strong>YOUR BID WON!!! <br>CONGRATULATIONS.</strong></p>
+              {% endif %}
+              {% endfor %}
+            </div>
+             <br>
+             <p><strong>AUCTION CLOSED</strong></p>
+             {% endif %}
+             {% endif %}
+               {% endif %}
+               <h3 class="mt-2">Details</h3>
+               <ul>
+               <li>Listed by: {{listing.user}}</li>
+               <li>Catergory: 
+               {%if listing.category %}
+                  {{listing.category}}
+               {% else %}
+                  No catergory
+               {% endif %} 
+               <li>Date created: {{listing.date_created}}</li>
+               </ul>
+         </div>
+      </div>
+            <div class="ml-5 mt-3">
+             <div>
+                <h3>Comments</h3>
+                <form action="{% url 'comments'%}" method="post">
+                {% csrf_token %}
+                <input class="inline" type="hidden" value="{{ listing.id }}" name="listing_id">
+                <textarea class="inline" name="comment"  cols="60" rows="1"></textarea>
+                <input class="inline mt-1" type="submit" value="Add comment">
+                </form>
+             </div> 
+                <br>
+                   
+                <div>
+                   {% if comments %}
+                   {% for comment in comments %}
+                   <div class="comment w-50 pl-2 mb-2">
+                      <p><strong>{{comment.user.username}}</strong></p>
+                       <p >{{comment.comment}}</p>
+                   </div>
+                       {% endfor %}
+                       {% endif %}
+                </div>
+                        {% endif %}
+            </div>         
+     </div>
+                    {% endblock %}

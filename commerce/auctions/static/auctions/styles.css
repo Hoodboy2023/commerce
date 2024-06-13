@@ -1,0 +1,86 @@
+*{
+  box-sizing: border-box;
+}
+body {
+    padding: 10px;
+}
+
+label {
+    display: block;
+    text-align: center;
+}
+#new_listing {
+    margin-left: 10px;
+}
+
+#new_listing input, #new_listing select {
+    display: block;
+    width: 50%;
+    padding: 6px;
+    margin: 5px auto;
+}
+
+a {
+   color: black;
+   text-decoration: none;
+}
+
+#dropdownMenuButton {
+    color:black;
+    background-color: white;
+    border: none;
+    padding-top: 8px;
+}
+
+.listings {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    margin-bottom:5px;
+    border: solid 1px black;
+    border-radius: 10px;
+}
+
+.image {
+  width: 100%;
+  height: 350px;
+  padding: 10px;
+  object-fit: contain;
+}
+.imageContainer {
+    width:50%;
+}
+
+#listing {
+    width: 100%;
+    display: flex;
+}
+
+#listing_image {
+    width: 100%;
+    height: 450px;
+    object-fit: contain;
+}
+
+
+.inline {
+    display: block;
+}
+
+.comment {
+    border: solid 1px black;
+    background-color: rgb(193, 203, 211);
+    border-radius: 5px;
+}
+
+.comment p {
+   margin-bottom: 0px;
+  
+}
+
+#won {
+    background-color: rgb(36, 197, 49);
+    border: solid 1px black;
+    border-radius: 10px;
+}
